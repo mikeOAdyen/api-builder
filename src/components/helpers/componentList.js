@@ -1,4 +1,4 @@
-const components = [
+export const componentList = [
   {
     name: 'ACH Direct Debit',
     paymentType:'directDebit',

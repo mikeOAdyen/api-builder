@@ -1,0 +1,10 @@
+#form-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.form-button {
+  align-self: flex-end;
+  margin-left: 5px;
+}

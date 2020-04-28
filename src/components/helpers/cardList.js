@@ -1,4 +1,4 @@
-const cards = [
+export const cardList = [
   {
     name:'American Express',
     countries:['international'],
