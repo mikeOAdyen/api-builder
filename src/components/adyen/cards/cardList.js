@@ -1,0 +1,145 @@
+const cards = [
+  {
+    name:'American Express',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'CARNET',
+    countries:['MX'],
+    threeDS: false,
+    recurring: true,
+    refunds: false,
+    partialRefunds: false,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: false
+  },
+  {
+    name:'Cartes Bancaires',
+    countries:['FR'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'China UnionPay',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'Diners',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'Discover',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'Elo',
+    countries:['BR'],
+    threeDS: false,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: false
+  },
+  {
+    name:'Hipercard',
+    countries:['BR'],
+    threeDS: false,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: false,
+    captures: true,
+    partialCaptures: false
+  },
+  {
+    name:'JCB',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'Maestro',
+    countries:['international'],
+    threeDS: true,
+    recurring: false,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'Mastercard',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+  {
+    name:'Troy',
+    countries:['Turkey'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: false
+  },
+  {
+    name:'Visa',
+    countries:['international'],
+    threeDS: true,
+    recurring: true,
+    refunds: true,
+    partialRefunds: true,
+    chargebacks: true,
+    captures: true,
+    partialCaptures: true
+  },
+]
