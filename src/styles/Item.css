@@ -1,0 +1,22 @@
+.option-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.store-item-option{
+  margin: 5px;
+  border: 2px solid darkgray;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.store-item-option:hover{
+  cursor: pointer;
+  border-color: lightgray;
+}
+
+.active{
+  border-color: green;
+}
