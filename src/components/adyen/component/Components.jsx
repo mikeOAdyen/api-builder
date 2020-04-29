@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
-import {
-  Form,
-  Input,
-  Label,
-  Button,
-  FormText,
-  FormGroup,
-  Container
-} from 'reactstrap';
-import { checkSetupOption } from '../helpers';
-import '../../styles/Form.css';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button } from 'reactstrap';
+import { Options } from '../../form/Options';
+import { cardList, componentList } from '../../helpers';
+import '../../../styles/Form.css';
 
-export const OptionsForm = props => {
+export const Components = props => {
   const [toTest, setToTest] = useState({});
+  const [config, setConfig] = useState({});
 
   const handleChange = e => {
     const newOptions = Object.assign({}, toTest, {
@@ -24,15 +18,15 @@ export const OptionsForm = props => {
 
   let additionalDetails;
 
-  if(props.type === 'component' && toTest.component && toTest.component === 'Cards') {
-    additionalDetails = checkSetupOption(toTest.component);
+  if(toTest.component && toTest.component === 'Cards') {
+    additionalDetails = <Options type='card' list={cardList}/>;
   };
 
   console.log(toTest);
   return (
     <Container>
       <Form onChange={handleChange}>
-        {checkSetupOption(props.type)}
+        <Options type='component' list={componentList}/>
         {additionalDetails}
         <div id="form-button-container">
           <Button id="clear-form" className="form-button" color="secondary">Clear</Button>
