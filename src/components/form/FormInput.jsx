@@ -3,7 +3,6 @@ import { FormGroup, Label, Input } from 'reactstrap';
 
 export const FormInput = props => {
   const { option, handleChange } = props;
-  console.log('rendering', option);
   return (
     <FormGroup key={option} className="dropin-option-container">
       <Label for={option}>{option}</Label>

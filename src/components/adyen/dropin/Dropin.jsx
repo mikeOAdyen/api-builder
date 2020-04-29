@@ -5,8 +5,8 @@ import '../../../styles/Form.css';
 export const Dropin = ({ config }) => {
   const [loaded, error] = useDropin(config);
 
-  return (
-    <div id="dropin">
-    </div>
-  );
+  if (loaded){
+    return <div id="dropin"></div>;
+  }
+  return <div id="dropin">{error}</div>
 };

@@ -10,6 +10,8 @@ import {
 } from 'reactstrap';
 import { Dropin } from './Dropin';
 import { FormInput } from '../../form/FormInput';
+import { ResultsField } from '../../form/ResultsField';
+import { createResults } from '../../helpers/createResults';
 import { getPaymentMethods } from './config';
 
 
@@ -28,6 +30,7 @@ const allOpts = [...paymentOpts, ...amountOpts];
 export const DropinForm = () => {
   const [amount, setAmount] = useState({});
   const [payOpts, setPayOpts] = useState({});
+  const [results, setResults] = useState({});
   const [dropinConfig, setDropinConfig] = useState(null);
 
   const handleChange = e => {
@@ -49,6 +52,9 @@ export const DropinForm = () => {
       });
       const response = await getPaymentMethods(reqObj);
       const config = await response.json();
+      const dropInRes = createResults('Get Payment Options', 'paymentMethods', reqObj, config);
+      console.log(config);
+      setResults(dropInRes);
       setDropinConfig(config);
     } catch (err) {
       console.error('error retrieving payment options', err);
@@ -63,6 +69,7 @@ export const DropinForm = () => {
     return (
       <Container>
         <Dropin config={dropinConfig} />
+        <ResultsField {...results} />
         <Button onClick={resetForm}>Reset</Button>
       </Container>
     )
