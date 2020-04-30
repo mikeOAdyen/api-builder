@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'reactstrap';
 import { Options } from '../../form/Options';
-import { cardList, componentList } from '../../helpers';
+import { cardList, componentList } from '../../../helpers';
 import '../../../styles/Form.css';
 
 export const Components = props => {

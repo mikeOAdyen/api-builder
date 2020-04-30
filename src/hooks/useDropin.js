@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
 import {dropInInit} from '../components/adyen/dropin/config';
 
-let cachedScript = false;
+const cachedScripts = [];
 
 export const useDropin = config => {
+  console.log('called with config', config);
   const [state, setState] = useState({
     loaded: false,
     error: false
   });
 
+  const dropinScriptUrl = 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js';
+
   useEffect(() => {
-      if (cachedScript) {
-        setState({
-          loaded: true,
-          error: false
-        });
+      if (cachedScripts.includes(dropinScriptUrl)) {
+          setState({
+            loaded: true,
+            error: false
+          });
+  
+        dropInInit(config);
       } else {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -22,16 +27,16 @@ export const useDropin = config => {
         document.head.appendChild(link);
         
         let script = document.createElement('script');
-        script.src = 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js';
+        script.src = dropinScriptUrl;
         script.async = true;
 
-        const onScriptLoad = async () => {
+        const onScriptLoad = () => {
           setState({
             loaded: true,
             error: false
           });
-
-          await dropInInit(config);
+          cachedScripts.push(dropinScriptUrl);
+          dropInInit(config);
         };
 
         const onScriptError = () => {
@@ -45,7 +50,6 @@ export const useDropin = config => {
         script.addEventListener('error', onScriptError);
 
         document.body.appendChild(script);
-        cachedScript = true;
         return () => {
           script.removeEventListener('load', onScriptLoad);
           script.removeEventListener('error', onScriptError);

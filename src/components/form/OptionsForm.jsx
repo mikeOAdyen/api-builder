@@ -8,7 +8,7 @@ import {
   FormGroup,
   Container
 } from 'reactstrap';
-import { checkSetupOption } from '../helpers';
+import { checkSetupOption } from '../../helpers';
 import '../../styles/Form.css';
 
 export const OptionsForm = props => {

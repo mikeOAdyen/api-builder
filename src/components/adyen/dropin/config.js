@@ -26,7 +26,8 @@ export const getPaymentMethods = async details => {
   }
 }
 
-export const dropInInit = async (config) => {
+export const dropInInit = (config) => {
+  console.log(config);
   const dropin = new window.AdyenCheckout(config);
   dropin.create('dropin', {
     onSubmit: async (request, dropin) => {
@@ -45,5 +46,5 @@ export const dropInInit = async (config) => {
         throw Error(err);
       }
     }
-  }).mount('#dropin')
+  }).mount('#dropin');
 };

@@ -1,9 +1,9 @@
-pre {
+/* pre {
   background-color: black;
   color: green;
   border-radius: 5px;
   padding: 10px;
-}
+} */
 
 .carousel-control > span {
   opacity: .1;
@@ -12,4 +12,10 @@ pre {
 .carousel-control > span:hover {
   cursor: pointer;
   opacity: 1;
+}
+
+#modal-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
 }

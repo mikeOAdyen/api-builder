@@ -1,5 +1,5 @@
 import React from 'react';
-import { Options } from '../form/Options';
+import { Options } from '../components/form/Options';
 import { cardList } from './cardList';
 import { componentList } from './componentList';
 

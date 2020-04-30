@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDropin } from '../../../hooks';
+import { useDropin } from '../../../hooks/useDropin';
 import '../../../styles/Form.css';
 
 export const Dropin = ({ config }) => {

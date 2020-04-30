@@ -1,6 +1,6 @@
-export const createResults = (step, path, request, response) => {
+export const createResults = (step, path, endpoint, request, response) => {
   const reqToServer = {
-    url: `https://TODO:change-this-to-dynamic/${path}`,
+    url: `${path}${endpoint}`,
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -9,7 +9,7 @@ export const createResults = (step, path, request, response) => {
   };
 
   const reqToAdyen = {
-    url: `https://checkout-test.adyen.com/v51/${path}`,
+    url: `https://checkout-test.adyen.com/v51${endpoint}`,
     method: 'POST',
     headers: {
       'X-API-key': '<YOUR KEY HERE>',
