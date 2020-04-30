@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { map } from 'lodash';
 import {
   Form,
-  Input,
-  Label,
   Button,
   Container,
-  FormGroup
 } from 'reactstrap';
 import { Dropin } from './Dropin';
 import { FormInput } from '../../form/FormInput';
-import { ResultsField } from '../../form/ResultsField';
+import { ResultsModal } from '../results/ResultsModal';
 import { createResults } from '../../helpers/createResults';
 import { getPaymentMethods } from './config';
 
@@ -28,15 +25,19 @@ const amountOpts = [
 const allOpts = [...paymentOpts, ...amountOpts];
 
 export const DropinForm = () => {
+  const [modal, setModal] = useState(false);
   const [amount, setAmount] = useState({});
   const [payOpts, setPayOpts] = useState({});
   const [results, setResults] = useState({});
   const [dropinConfig, setDropinConfig] = useState(null);
-
+  
+  const toggle = () => setModal(!modal);
+  
   const handleChange = e => {
     const { name, value } = e.target;
     if (amountOpts.includes(name)) {
       setAmount(Object.assign({}, amount, { 
+        // convert string from input to number
         [name]: name === 'value' ? Number(value) : value 
       }));
     } else {
@@ -68,8 +69,8 @@ export const DropinForm = () => {
   if (dropinConfig) {
     return (
       <Container>
+        <ResultsModal modal={modal} toggle={toggle} results={results} />
         <Dropin config={dropinConfig} />
-        <ResultsField {...results} />
         <Button onClick={resetForm}>Reset</Button>
       </Container>
     )

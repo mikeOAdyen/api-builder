@@ -1,0 +1,15 @@
+pre {
+  background-color: black;
+  color: green;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.carousel-control > span {
+  opacity: .1;
+}
+
+.carousel-control > span:hover {
+  cursor: pointer;
+  opacity: 1;
+}
