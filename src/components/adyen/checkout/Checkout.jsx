@@ -1,15 +1,14 @@
 import React from 'react';
-import { useCheckout } from '../../../hooks/useCheckout';
 import './Checkout.css';
+import { checkoutInit } from './checkoutInit';
 
-export const Checkout = ({ config, type, paymentOpts, account }) => {
-  const [loaded, error] = useCheckout(config, type, paymentOpts, account);
-
-  if (loaded){
-    return (
-      <div id="checkout">
-      </div>
-    );
-  }
-  return <div id="checkout">{error}</div>
+const Checkout = props => {
+  console.log(props);
+  return (
+    <div id="checkout">
+      <h3 id="rendered-result-title">Rendered Result</h3>
+    </div>
+  )
 };
+
+export default React.memo(checkoutInit(Checkout))

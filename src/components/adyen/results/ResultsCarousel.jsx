@@ -9,6 +9,7 @@ import {
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import json from 'react-syntax-highlighter/dist/esm/languages/hljs/json';
 import monokai from 'react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime';
+import './ResultsCarousel.css';
 
 SyntaxHighlighter.registerLanguage('json', json);
 

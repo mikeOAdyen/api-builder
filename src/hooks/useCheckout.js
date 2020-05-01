@@ -1,25 +1,22 @@
 import { useState, useEffect } from 'react';
-import {checkoutInit} from '../components/adyen/checkout/checkoutInit';
 
 const cachedScripts = [];
 
-export const useCheckout = (config, type, paymentOpts, account) => {
-  console.log('called with', config, account);
+export const useCheckout = config => {
+  console.log('called with', config);
   const [state, setState] = useState({
     loaded: false,
     error: false
   });
 
-  const dropinScriptUrl = 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js';
+  const checkoutScriptUrl = 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/3.0.0/adyen.js';
 
   useEffect(() => {
-      if (cachedScripts.includes(dropinScriptUrl)) {
+      if (cachedScripts.includes(checkoutScriptUrl)) {
           setState({
             loaded: true,
             error: false
-          });
-  
-        checkoutInit(config, type, paymentOpts, account);
+          });  
       } else {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -27,7 +24,7 @@ export const useCheckout = (config, type, paymentOpts, account) => {
         document.head.appendChild(link);
         
         let script = document.createElement('script');
-        script.src = dropinScriptUrl;
+        script.src = checkoutScriptUrl;
         script.async = true;
 
         const onScriptLoad = () => {
@@ -35,8 +32,7 @@ export const useCheckout = (config, type, paymentOpts, account) => {
             loaded: true,
             error: false
           });
-          cachedScripts.push(dropinScriptUrl);
-          checkoutInit(config, type, paymentOpts, account);
+          cachedScripts.push(checkoutScriptUrl);
         };
 
         const onScriptError = () => {

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { map } from 'lodash';
 import {
+  Row,
+  Col,
   Form,
   Button,
   Container,
 } from 'reactstrap';
-import { Checkout } from '../checkout/Checkout';
+import Checkout from '../checkout/Checkout';
 import { FormInput } from '../../form/FormInput';
-import { ResultsModal } from '../results/ResultsModal';
+import { ResultsCarousel } from '../results/ResultsCarousel';
 import { createResults } from '../results/createResults';
 import { getPaymentMethods } from './getPaymentMethods';
 import './Dropin.css';
@@ -15,7 +17,8 @@ import './Dropin.css';
 const paymentOpts = [
   'channel',
   'countryCode',
-  'merchantAccount'
+  'merchantAccount',
+  'merchantReference'
 ];
 
 const amountOpts = [
@@ -24,23 +27,19 @@ const amountOpts = [
 ];
 
 const accountInfo = [
-  'baseApiUrl',
-  'shopperReference'
+  'baseApiUrl'
 ];
 
 const allOpts = [...accountInfo, ...paymentOpts, ...amountOpts];
 
 export const DropinForm = () => {
-  const [modal, setModal] = useState(false);
   const [payOpts, setPayOpts] = useState({
     amount: {}
   });
   const [account, setAccount] = useState({})
   const [results, setResults] = useState(null);
   const [dropinConfig, setDropinConfig] = useState(null);
-  
-  const toggle = () => setModal(!modal);
-  
+    
   const handleChange = e => {
     const { name, value } = e.target;
     if (amountOpts.includes(name)) {
@@ -74,15 +73,23 @@ export const DropinForm = () => {
     setDropinConfig(null);
   };
 
-  // if (results){
-
-  // }
-
   if (dropinConfig) {
     return (
       <Container id="dropin-container">
-        <ResultsModal modal={modal} toggle={toggle} results={results} />
-        <Checkout config={dropinConfig} type="dropin" paymentOpts={payOpts} account={account}/>
+        <Row xs={1} sm={1} md={2}>
+          <Col>
+            <Checkout
+              type="dropin"
+              config={dropinConfig}
+              account={account}
+              paymentOpts={payOpts}
+              setResults={setResults}
+            />
+          </Col>
+          <Col>
+            <ResultsCarousel {...results} />
+          </Col>
+        </Row>
         <Button onClick={resetForm}>Reset</Button>
       </Container>
     )
