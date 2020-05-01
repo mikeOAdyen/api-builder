@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const LandingPage = props => {
-  return (<div>Hello, World</div>)
+  return (<div>TODO: Landing Page</div>)
 };

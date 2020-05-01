@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import {dropInInit} from '../components/adyen/dropin/config';
+import {checkoutInit} from '../components/adyen/checkout/checkoutInit';
 
 const cachedScripts = [];
 
-export const useDropin = config => {
-  console.log('called with config', config);
+export const useCheckout = (config, type, paymentOpts, account) => {
+  console.log('called with', config, account);
   const [state, setState] = useState({
     loaded: false,
     error: false
@@ -19,7 +19,7 @@ export const useDropin = config => {
             error: false
           });
   
-        dropInInit(config);
+        checkoutInit(config, type, paymentOpts, account);
       } else {
         const link = document.createElement("link");
         link.rel = "stylesheet";
@@ -36,7 +36,7 @@ export const useDropin = config => {
             error: false
           });
           cachedScripts.push(dropinScriptUrl);
-          dropInInit(config);
+          checkoutInit(config, type, paymentOpts, account);
         };
 
         const onScriptError = () => {

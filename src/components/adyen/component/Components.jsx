@@ -22,7 +22,6 @@ export const Components = props => {
     additionalDetails = <Options type='card' list={cardList}/>;
   };
 
-  console.log(toTest);
   return (
     <Container>
       <Form onChange={handleChange}>

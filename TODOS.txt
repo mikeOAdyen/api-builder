@@ -1,0 +1,1 @@
+- Add shopper reference field to dropin to identify stored cards

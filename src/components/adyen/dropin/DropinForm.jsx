@@ -5,12 +5,12 @@ import {
   Button,
   Container,
 } from 'reactstrap';
-import { Dropin } from './Dropin';
+import { Checkout } from '../checkout/Checkout';
 import { FormInput } from '../../form/FormInput';
 import { ResultsModal } from '../results/ResultsModal';
-import { createResults } from '../../../helpers/createResults';
-import { getPaymentMethods } from './config';
-import '../../../styles/DropinForm.css';
+import { createResults } from '../results/createResults';
+import { getPaymentMethods } from './getPaymentMethods';
+import './Dropin.css';
 
 const paymentOpts = [
   'channel',
@@ -24,7 +24,8 @@ const amountOpts = [
 ];
 
 const accountInfo = [
-  'baseApiUrl'
+  'baseApiUrl',
+  'shopperReference'
 ];
 
 const allOpts = [...accountInfo, ...paymentOpts, ...amountOpts];
@@ -35,7 +36,7 @@ export const DropinForm = () => {
     amount: {}
   });
   const [account, setAccount] = useState({})
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState(null);
   const [dropinConfig, setDropinConfig] = useState(null);
   
   const toggle = () => setModal(!modal);
@@ -49,7 +50,7 @@ export const DropinForm = () => {
       });
       setPayOpts({...payOpts, amount: newAmount});
     } else if (accountInfo.includes(name)) {
-      setAccount({ [name]: value });
+      setAccount(Object.assign({}, account, { [name]: value }));
     } else {
       setPayOpts(Object.assign({}, payOpts, { [name]: value }));
     }
@@ -59,11 +60,11 @@ export const DropinForm = () => {
     e.preventDefault();
     try {
       const response = await getPaymentMethods(payOpts);
-      const config = await response.json();
-      const dropInRes = createResults('Drop-in Initialization', account.baseApiUrl, '/paymentMethods', payOpts, config);
+      const paymentResponse = await response.json();
+      const dropInRes = createResults('Drop-in Initialization', account.baseApiUrl, '/paymentMethods', payOpts, paymentResponse);
 
       setResults(dropInRes);
-      setDropinConfig(config);
+      setDropinConfig(paymentResponse);
     } catch (err) {
       console.error('error retrieving payment options', err);
     }
@@ -73,11 +74,15 @@ export const DropinForm = () => {
     setDropinConfig(null);
   };
 
+  // if (results){
+
+  // }
+
   if (dropinConfig) {
     return (
       <Container id="dropin-container">
         <ResultsModal modal={modal} toggle={toggle} results={results} />
-        <Dropin config={dropinConfig} />
+        <Checkout config={dropinConfig} type="dropin" paymentOpts={payOpts} account={account}/>
         <Button onClick={resetForm}>Reset</Button>
       </Container>
     )
