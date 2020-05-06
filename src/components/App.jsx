@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import Header from './Header';
 import { DropinForm } from '../components/adyen/dropin/DropinForm';
-import { Components } from '../components/adyen/component/Components';
 import { LandingPage } from './LandingPage';
+import { ComponentForm } from '../components/adyen/component/ComponentForm';
 
 const App = () => {
 
@@ -12,7 +12,7 @@ const App = () => {
       <Header />
       <Route exact path='/' component={LandingPage} />
       <Route exact path='/dropin' component={DropinForm} />
-      <Route exact path='/components' component={Components} />
+      <Route exact path='/components' component={ComponentForm} />
     </div>
   )
 };

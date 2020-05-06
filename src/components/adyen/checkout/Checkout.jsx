@@ -1,9 +1,8 @@
 import React from 'react';
-import './Checkout.css';
 import { checkoutInit } from './checkoutInit';
+import './Checkout.css';
 
-const Checkout = props => {
-  console.log(props);
+const Checkout = () => {
   return (
     <div id="checkout">
       <h3 id="rendered-result-title">Rendered Result</h3>

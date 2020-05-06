@@ -1,11 +1,11 @@
 import React from 'react';
-import { useCheckout } from '../../../hooks/useCheckout';
-import { makePaymentReq } from './makePaymentReq';
 import { createResults } from '../results/createResults';
+import { makePaymentReq } from '../../../requests/makePaymentReq';
+import { useCheckoutScript } from '../../../hooks/useCheckoutScript';
 
 export const checkoutInit = WrappedComponent => 
   ({ config, type, paymentOpts, account, setResults }) => {
-    const [loaded, error] = useCheckout(config);
+    const [loaded, error] = useCheckoutScript(config);
 
     const showResult = (response, { account, paymentOpts }) => {
       const newResults = createResults('Make Payment', `${account.baseApiUrl}`, '/payments', paymentOpts, response);
@@ -55,6 +55,7 @@ export const checkoutInit = WrappedComponent =>
           }
         }
       });
+      
       checkout.create(type).mount('#checkout');
     } else if (error) {
       setResults({ message: 'Error intializing checkout', error });

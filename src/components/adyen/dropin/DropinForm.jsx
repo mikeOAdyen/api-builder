@@ -10,8 +10,7 @@ import {
 import Checkout from '../checkout/Checkout';
 import { FormInput } from '../../form/FormInput';
 import { ResultsCarousel } from '../results/ResultsCarousel';
-import { createResults } from '../results/createResults';
-import { getPaymentMethods } from './getPaymentMethods';
+import { useGetPaymentOpts } from '../../../hooks';
 import './Dropin.css';
 
 const paymentOpts = [
@@ -33,21 +32,18 @@ const accountInfo = [
 const allOpts = [...accountInfo, ...paymentOpts, ...amountOpts];
 
 export const DropinForm = () => {
-  const [payOpts, setPayOpts] = useState({
-    amount: {}
-  });
-  const [account, setAccount] = useState({})
-  const [results, setResults] = useState(null);
-  const [dropinConfig, setDropinConfig] = useState(null);
+  const [amount, setAmount] = useState({});
+  const [payOpts, setPayOpts] = useState({});
+  const [account, setAccount] = useState({});
+  const [paymentMethods, setPaymentMethods, getPaymentMethods] = useGetPaymentOpts(null);
     
   const handleChange = e => {
     const { name, value } = e.target;
     if (amountOpts.includes(name)) {
-      const newAmount = Object.assign({}, payOpts.amount, { 
+      setAmount(Object.assign({}, amount, { 
         // convert string from input to number
         [name]: name === 'value' ? Number(value) : value 
-      });
-      setPayOpts({...payOpts, amount: newAmount});
+      }));
     } else if (accountInfo.includes(name)) {
       setAccount(Object.assign({}, account, { [name]: value }));
     } else {
@@ -55,39 +51,29 @@ export const DropinForm = () => {
     }
   };
 
-  const getPaymentOpts = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    try {
-      const response = await getPaymentMethods(payOpts);
-      const paymentResponse = await response.json();
-      const dropInRes = createResults('Drop-in Initialization', account.baseApiUrl, '/paymentMethods', payOpts, paymentResponse);
-
-      setResults(dropInRes);
-      setDropinConfig(paymentResponse);
-    } catch (err) {
-      console.error('error retrieving payment options', err);
-    }
-  };
+    getPaymentMethods({...payOpts, amount});
+  }
 
   const resetForm = () => {
-    setDropinConfig(null);
+    setPaymentMethods(null);
   };
 
-  if (dropinConfig) {
+  if (paymentMethods) {
     return (
       <Container id="dropin-container">
         <Row xs={1} sm={1} md={2}>
           <Col>
-            <Checkout
-              type="dropin"
-              config={dropinConfig}
-              account={account}
-              paymentOpts={payOpts}
-              setResults={setResults}
-            />
+            <ResultsCarousel baseUrl={account.baseApiUrl} path="/paymentMethods" reqData={payOpts} responseData={paymentMethods}/>
           </Col>
           <Col>
-            <ResultsCarousel {...results} />
+            <Checkout
+              type="dropin"
+              config={paymentMethods}
+              account={account}
+              paymentOpts={payOpts}
+            />
           </Col>
         </Row>
         <Button onClick={resetForm}>Reset</Button>
@@ -97,7 +83,7 @@ export const DropinForm = () => {
 
   return (
     <Container id="dropin-form-container">      
-      <Form id="dropin-form" onSubmit={getPaymentOpts}>
+      <Form id="dropin-form" onSubmit={handleSubmit}>
         {map(allOpts, option => {
           return (
             <FormInput key={option} option={option} handleChange={handleChange} />

@@ -1,4 +1,4 @@
-export const createResults = (step, path, endpoint, request, response) => {
+export const createResults = (path, endpoint, request, response) => {
   const reqToServer = {
     url: `${path}${endpoint}`,
     method: 'POST',
@@ -18,12 +18,9 @@ export const createResults = (step, path, endpoint, request, response) => {
     body: request
   };
 
-  return {
-    step,
-    requests: [
-      {title: 'Request to your Server', body: JSON.stringify(reqToServer, null, 2)},
-      {title: 'Request to Adyen', body: JSON.stringify(reqToAdyen, null ,2)},
-      {title: 'Response from Adyen', body: JSON.stringify(response, null, 2)}
-    ]
-  };
+  return [
+    {title: 'Request to your Server', body: JSON.stringify(reqToServer, null, 2)},
+    {title: 'Request to Adyen', body: JSON.stringify(reqToAdyen, null ,2)},
+    {title: 'Response from Adyen', body: JSON.stringify(response, null, 2)}
+  ];
 };

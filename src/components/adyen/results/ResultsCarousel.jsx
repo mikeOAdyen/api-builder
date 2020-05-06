@@ -9,12 +9,15 @@ import {
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import json from 'react-syntax-highlighter/dist/esm/languages/hljs/json';
 import monokai from 'react-syntax-highlighter/dist/esm/styles/hljs/monokai-sublime';
+import { createResults } from './createResults';
 import './ResultsCarousel.css';
 
 SyntaxHighlighter.registerLanguage('json', json);
 
-export const ResultsCarousel = ({ requests }) => {
+export const ResultsCarousel = ({ baseUrl, path, reqData, responseData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  
+  const requests = createResults(baseUrl, path, reqData, responseData);
 
   const next = () => {
     const nextIndex = activeIndex === requests.length - 1 ? 0 : activeIndex + 1;
